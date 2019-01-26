@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1548520176098_1231';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = [ 'errorHandler' ];
 
   // add your special config in here
   const bizConfig = {
