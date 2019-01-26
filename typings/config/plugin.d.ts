@@ -3,3 +3,4 @@
 
 import 'egg';
 import 'egg-mongoose';
+import 'egg-validate';
