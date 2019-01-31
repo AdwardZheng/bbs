@@ -15,8 +15,15 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
   };
 
+  // mongoose
   config.mongoose = {
     url: 'mongodb://localhost/bbs',
+  };
+
+  // passport
+  config.passportLocal = {
+    usernameField: 'name',
+    passwordField: 'password',
   };
 
   // the return config will combines to EggAppConfig
