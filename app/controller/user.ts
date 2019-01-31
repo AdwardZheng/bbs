@@ -25,4 +25,17 @@ export default class UserController extends Controller {
         await service.user.addNewUser(name, password , email);
         ctx.body = JSON.stringify(paramas);
     }
+
+    // 登陆
+    async login() {
+        const { ctx, service } = this;
+        const { name, password } = ctx.query;
+        const user = await service.user.getUserByname(name);
+        if (!user) return null;
+        if (user.password === password) {
+            ctx.body = user.toJSON();
+        } else {
+            ctx.body = '密码或用户名错误';
+        }
+    }
 }

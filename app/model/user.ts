@@ -1,4 +1,5 @@
 import { Application } from 'egg';
+import { UserModel } from '../constants/interface/user';
 export default (app: Application) => {
     const mongoose = app.mongoose;
     const Schema = mongoose.Schema;
@@ -14,5 +15,5 @@ export default (app: Application) => {
 
     UserSchema.index({ email: 1 }, { unique: true });
 
-    return mongoose.model('User', UserSchema);
+    return mongoose.model<UserModel>('User', UserSchema);
 };
