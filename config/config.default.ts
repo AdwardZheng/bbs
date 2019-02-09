@@ -20,6 +20,11 @@ export default (appInfo: EggAppInfo) => {
     url: 'mongodb://localhost/bbs',
   };
 
+  // security
+  config.security = {
+    csrf: false,
+  };
+
   // passport
   config.passportLocal = {
     usernameField: 'name',

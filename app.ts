@@ -14,7 +14,8 @@ export default (app: Application) => {
     };
 
     app.passport.verify(async (ctx: Context, user: any) => {
-        const existUser = await getUser(ctx, user.name, user.passport);
+        console.log('鉴权');
+        const existUser = await getUser(ctx, user.username, user.password);
         if (existUser) {
             const auth_token: string = existUser._id;
             const opts: CookieSetOptions = {
@@ -30,6 +31,7 @@ export default (app: Application) => {
     });
 
     app.passport.deserializeUser(async (ctx: Context, user: any) => {
+        console.log('获取user');
         if (user) {
             const auth_token = ctx.cookies.get('bbs', { signed: true });
             if (!auth_token) return null;

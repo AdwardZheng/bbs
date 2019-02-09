@@ -11,6 +11,7 @@ export default (app: Application) => {
         score: { type: Number, default: 0 },
         create_date: { type: Date, default: Date.now },
         update_date: { type: Date, default: Date.now },
+        reply_count: { type: Number, default: 0 },
     });
 
     UserSchema.index({ email: 1 }, { unique: true });
