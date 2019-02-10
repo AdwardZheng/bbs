@@ -48,6 +48,21 @@ export default class UserService extends Service {
         reply_count: count,
       },
     };
-    return (ctx.model.User as Model<UserModel>).findByIdAndUpdate(query, update);
+    return (ctx.model.User as Model<UserModel>).findByIdAndUpdate(query, update, { new: true });
+  }
+
+  // test
+
+  test() {
+    const { ctx } = this;
+    return (ctx.model.User as Model<UserModel>).findOneAndUpdate({
+      name: 'tom',
+    }, {
+      $inc: {
+        score: 1,
+      },
+    }, {
+      new: true,
+    });
   }
 }

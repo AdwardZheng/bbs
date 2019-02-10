@@ -42,6 +42,6 @@ export default class TopicService extends Service {
     const { ctx } = this;
     const query = { _id: id };
     const update = { $inc: { visitCount: 1 } };
-    return ctx.model.Topic.findByIdAndUpdate(query, update);
+    return ctx.model.Topic.findByIdAndUpdate(query, update, { new: true });
   }
 }
