@@ -29,7 +29,7 @@ export default class TopicService extends Service {
     }
 
     // TODO回复
-    const replies = [ 1, 2 ];
+    const replies = await service.reply.getRepliesByTopicId(topic._id);
 
     return {
       topic,
