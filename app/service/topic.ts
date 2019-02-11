@@ -13,8 +13,8 @@ export default class TopicService extends Service {
     return topic.save();
   }
 
-  //  获取主题
-  async getTopic(id: string) {
+  //  获取主题及回复
+  async getFullTopic(id: string) {
     const { ctx, service } = this;
     const query = { _id: id };
     const topic = await (ctx.model.Topic as Model<TopicModel>).findOne(query);
@@ -43,5 +43,10 @@ export default class TopicService extends Service {
     const query = { _id: id };
     const update = { $inc: { visitCount: 1 } };
     return ctx.model.Topic.findByIdAndUpdate(query, update, { new: true });
+  }
+
+  getTopicById(id: string) {
+    const { ctx } = this;
+    return (ctx.model.Topic as Model<TopicModel>).findOne({ _id: id });
   }
 }

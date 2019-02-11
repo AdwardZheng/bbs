@@ -11,7 +11,7 @@ export default class TopicController extends Controller {
       return;
     }
 
-    const result = await service.topic.getTopic(topic_id);
+    const result = await service.topic.getFullTopic(topic_id);
     if (!result) {
       ctx.status = 404;
       ctx.message = '此话题不存在或已被删除';
@@ -65,5 +65,30 @@ export default class TopicController extends Controller {
     ctx.body = {
       msg: '发布成功',
     };
+  }
+
+  //  更新主题帖
+  async update() {
+    const { ctx, service } = this;
+    const topic_id = ctx.params.tid;
+    let { title, content } = ctx.request.body;
+
+    const topic = await service.topic.getTopicById(topic_id);
+    if (!topic) {
+      ctx.status = 404;
+      ctx.body = {
+        err: '此话题不存在',
+      };
+      return;
+    }
+
+    if (topic.author_id.toString() === ctx.user._id.toString()) {
+      title = title.trim();
+      content = content.trim();
+
+      ctx.body = {
+        title,
+      };
+    }
   }
 }
