@@ -1,6 +1,4 @@
 import { Application } from 'egg';
-import exist_user from './middleware/exist_user';
-
 export default (app: Application) => {
   const { controller, router, middleware } = app;
 
@@ -25,5 +23,10 @@ export default (app: Application) => {
   // 获取主题及其回复
   router.get('/topic/:tid', controller.topic.index);
   // 修改主题
-  router.post('/topic/:tid/edit', exist_user, controller.topic.update);
+  router.post('/topic/:tid/edit', existUser, controller.topic.update);
+
+  // reply
+
+  // 提交回复
+  router.post('/:tid/reply', existUser, controller.reply.add);
 };

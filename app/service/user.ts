@@ -58,10 +58,6 @@ export default class UserService extends Service {
     return (ctx.model.User as Model<UserModel>).findOneAndUpdate({
       name: 'tom',
     }, {
-      $inc: {
-        score: 1,
-      },
-    }, {
       new: true,
     });
   }

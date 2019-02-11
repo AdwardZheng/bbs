@@ -49,4 +49,19 @@ export default class TopicService extends Service {
     const { ctx } = this;
     return (ctx.model.Topic as Model<TopicModel>).findOne({ _id: id });
   }
+
+  //  更新最后回复
+  updateLasetReply(topic_id: Types.ObjectId, reply_id: Types.ObjectId) {
+    const { ctx } = this;
+    const update = {
+      last_reply: reply_id,
+      last_reply_at: new Date(),
+      $inc: {
+        reply_count: 1,
+      },
+    };
+
+    const opts = { new: true };
+    return (ctx.model.Topic as Model<TopicModel>).findByIdAndUpdate(topic_id, update, opts);
+  }
 }
