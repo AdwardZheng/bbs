@@ -83,11 +83,40 @@ export default class TopicController extends Controller {
     }
 
     if (topic.author_id.toString() === ctx.user._id.toString()) {
-      title = title.trim();
-      content = content.trim();
+      title = ctx.helper.trim(title);
+      content = ctx.helper.trim(content);
+
+      let errMsg;
+      //  验证错误
+      if (title === '') {
+        errMsg = '标题不能为空';
+      } else if (title.length < 5 || title.length > 50) {
+        errMsg = '标题太长或太短';
+      } else if (content === '') {
+        errMsg = '内容不能为空';
+      }
+
+      if (errMsg) {
+        ctx.body = {
+          err: errMsg,
+        };
+        return;
+      }
+
+      // 保存
+      topic.title = title;
+      topic.content = content;
+      topic.update_date = new Date();
+
+      await topic.save();
 
       ctx.body = {
-        title,
+        msg: '更新成功',
+      };
+    } else {
+      ctx.status = 403;
+      ctx.body = {
+        err: '你不能编辑此主题',
       };
     }
   }
