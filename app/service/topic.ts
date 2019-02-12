@@ -4,7 +4,7 @@ import { TopicModel } from '../constants/interface/topic';
 export default class TopicService extends Service {
 
   //  添加新主题
-  addNewTopic(title: string, content: string, author_id: string) {
+  addNewTopic(title: string, content: string, author_id: Types.ObjectId) {
     const { ctx } = this;
     const topic = new (ctx.model.Topic as Model<TopicModel>)();
     topic.title = title;
@@ -63,5 +63,21 @@ export default class TopicService extends Service {
 
     const opts = { new: true };
     return (ctx.model.Topic as Model<TopicModel>).findByIdAndUpdate(topic_id, update, opts);
+  }
+
+  //  自定义搜索
+  async getTopicsByQuery(query: any, opts: object) {
+    const { ctx } = this;
+    const topics = await (ctx.model.Topic as Model<TopicModel>).find(query, {}, opts).populate('author_id');
+
+    if (topics.length === 0) return [];
+
+    return topics;
+  }
+
+  //  获取主题数
+  getCountByQuery(query: any) {
+    const { ctx } = this;
+    return ctx.model.Topic.count(query);
   }
 }

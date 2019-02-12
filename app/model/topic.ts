@@ -8,7 +8,7 @@ export default (app: Application) => {
   const TopicSchema = new Schema({
     title: { type: String },
     content: { type: String },
-    authour_id: { type: ObjectId },
+    author_id: { type: ObjectId, ref: 'User' },
     top: { type: Boolean, default: false },  // 是否置顶
     good: { type: Boolean, default: false },  // 精华帖
     reply_count: { type: Number, default: 0 },
@@ -16,7 +16,7 @@ export default (app: Application) => {
     create_date: { type: Date, default: Date.now },
     update_date: { type: Date, default: Date.now },
     last_replay: { type: ObjectId },
-    last_replay_at: { type: Date },
+    last_replay_at: { type: Date, default: Date.now },
   });
   TopicSchema.index({ create_date: -1 });
   TopicSchema.index({ top: -1, last_replay_at: -1 });
