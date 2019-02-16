@@ -120,4 +120,53 @@ export default class TopicController extends Controller {
       };
     }
   }
+
+  // 置顶
+  async top() {
+    const { ctx, service } = this;
+    const topic_id = ctx.params.tid;
+
+    const topic = await service.topic.getTopicById(topic_id);
+
+    if (!topic) {
+      ctx.status = 404;
+      ctx.body = {
+        err: '此话题不存在',
+      };
+      return;
+    }
+
+    topic.top = !topic.top;
+
+    await topic.save();
+    const msg = topic.top ? '已置顶' : '置顶已取消';
+
+    ctx.body = {
+      msg,
+    };
+  }
+
+  // 加精
+  async good() {
+    const { ctx, service } = this;
+    const topic_id = ctx.params.tid;
+
+    const topic = await service.topic.getTopicById(topic_id);
+
+    if (!topic) {
+      ctx.status = 404;
+      ctx.body = {
+        err: '此话题不存在',
+      };
+      return;
+    }
+
+    topic.good = !topic.good;
+    await topic.save();
+    const msg = topic.good ? '已将此话题设为精华' : '此话题已取消精华';
+    ctx.body = {
+      msg,
+    };
+  }
+
 }

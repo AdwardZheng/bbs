@@ -41,4 +41,8 @@ export default class ReplyService extends Service {
     return reply;
   }
 
+  async getReplyById(id: Types.ObjectId | string) {
+    const { ctx } = this;
+    return (ctx.model.Reply as Model<ReplyModel>).findById(id);
+  }
 }

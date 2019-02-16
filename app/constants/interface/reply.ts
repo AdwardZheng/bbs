@@ -5,6 +5,7 @@ export interface Reply {
     author_id: Types.ObjectId;
     create_at: Date;
     update_at: Date;
+    likes: Types.ObjectId[];
 }
 
 export interface ReplyModel extends Reply, Document {

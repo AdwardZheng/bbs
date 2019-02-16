@@ -24,6 +24,7 @@ export default class HomeController extends Controller {
       skip: (page - 1) * limit,
       limit,
       sort: {
+        top: -1,
         last_replay_at: -1,
       },
     };

@@ -12,6 +12,7 @@ export default (app: Application) => {
     author_id: { type: ObjectId },
     create_at: { type: Date, default: Date.now },
     update_at: { type: Date, default: Date.now },
+    liks: { type: [ ObjectId ], default: [] },
   }, {
     usePushEach: true,
   });
