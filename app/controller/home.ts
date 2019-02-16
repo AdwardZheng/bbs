@@ -13,7 +13,7 @@ export default class HomeController extends Controller {
     page = page > 0 ? page : 1;
 
     const query = {
-      create_date: {
+      create_at: {
         $gte: moment().subtract(1, 'years').toDate(),
       },
     };

@@ -7,8 +7,8 @@ export interface Topic {
     good: boolean;
     reply_count: number;
     visit_count: number;
-    create_date: Date;
-    update_date: Date;
+    create_at: Date;
+    update_at: Date;
     last_reply: Types.ObjectId;
     last_reply_at: Date;
     tab: string;

@@ -21,13 +21,13 @@ export default class UserController extends Controller {
     const opt = {
       limit: 5,
       sort: {
-        create_date: -1,
+        create_at: -1,
       },
     };
 
     const [ recent_topics, replies ] = await Promise.all([
       service.topic.getTopicsByQuery(query, opt),
-      service.reply.getReplyByAuthorId(user._id, { limit: 20, sort: { create_date: -1 } }),
+      service.reply.getReplyByAuthorId(user._id, { limit: 20, sort: { create_at: -1 } }),
     ]);
 
     // 通过构造set去重

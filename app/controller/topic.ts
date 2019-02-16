@@ -106,7 +106,7 @@ export default class TopicController extends Controller {
       // 保存
       topic.title = title;
       topic.content = content;
-      topic.update_date = new Date();
+      topic.update_at = new Date();
 
       await topic.save();
 

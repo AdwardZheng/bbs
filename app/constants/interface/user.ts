@@ -5,8 +5,8 @@ export interface User {
     password: string;
     email: string;
     score: number;
-    create_date: Date;
-    update_date: Date;
+    create_at: Date;
+    update_at: Date;
 }
 
 export interface UserModel extends User, Document {

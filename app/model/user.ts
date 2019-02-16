@@ -9,8 +9,8 @@ export default (app: Application) => {
         password: { type: String },
         email: { type: String, unique: true },
         score: { type: Number, default: 0 },
-        create_date: { type: Date, default: Date.now },
-        update_date: { type: Date, default: Date.now },
+        create_at: { type: Date, default: Date.now },
+        update_at: { type: Date, default: Date.now },
         reply_count: { type: Number, default: 0 },
     });
 

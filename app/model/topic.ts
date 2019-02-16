@@ -13,8 +13,8 @@ export default (app: Application) => {
     good: { type: Boolean, default: false },  // 精华帖
     reply_count: { type: Number, default: 0 },
     visit_count: { type: Number, default: 0 },
-    create_date: { type: Date, default: Date.now },
-    update_date: { type: Date, default: Date.now },
+    create_at: { type: Date, default: Date.now },
+    update_at: { type: Date, default: Date.now },
     last_replay: { type: ObjectId },
     last_replay_at: { type: Date, default: Date.now },
   });
