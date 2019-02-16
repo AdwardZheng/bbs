@@ -6,7 +6,7 @@ import { Model, Types } from 'mongoose';
 export default class UserService extends Service {
 
   // 根据ID查找用户
-  getUserById(id: Types.ObjectId) {
+  getUserById(id: Types.ObjectId | string) {
     if (!id) return null;
     const { ctx } = this;
     return (ctx.model.User as Model<UserModel>).findOne({

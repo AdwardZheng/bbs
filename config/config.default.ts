@@ -14,6 +14,7 @@ export default (appInfo: EggAppInfo) => {
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     topic_count: 10,
+    admings: [ 'admin' ],
   };
 
   // mongoose
