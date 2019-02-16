@@ -2,7 +2,7 @@ import { Controller } from 'egg';
 export default class UserController extends Controller {
 
   async index() {
-    const { ctx, service, config } = this;
+    const { ctx, service } = this;
     const user_name = ctx.params.name;
     const user = await service.user.getUserByname(user_name);
 
