@@ -66,13 +66,9 @@ export default class TopicService extends Service {
   }
 
   //  自定义搜索
-  async getTopicsByQuery(query: any, opts: object) {
+  async getTopicsByQuery(query: any, opts?: object) {
     const { ctx } = this;
-    const topics = await (ctx.model.Topic as Model<TopicModel>).find(query, {}, opts).populate('author_id');
-
-    if (topics.length === 0) return [];
-
-    return topics;
+    return await (ctx.model.Topic as Model<TopicModel>).find(query, {}, opts).populate('author_id');
   }
 
   //  获取主题数

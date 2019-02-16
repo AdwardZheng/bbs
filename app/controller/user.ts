@@ -1,5 +1,57 @@
 import { Controller } from 'egg';
 export default class UserController extends Controller {
+
+  async index() {
+    const { ctx, service, config } = this;
+    const user_name = ctx.params.name;
+    const user = await service.user.getUserByname(user_name);
+
+    if (!user) {
+      ctx.status = 404;
+      ctx.body = {
+        msg: '此用户不存在',
+      };
+      return;
+    }
+
+    // 查找创建的话题
+    const query = {
+      author_id: user._id,
+    };
+    const opt = {
+      limit: 5,
+      sort: {
+        create_date: -1,
+      },
+    };
+
+    const [ recent_topics, replies ] = await Promise.all([
+      service.topic.getTopicsByQuery(query, opt),
+      service.reply.getReplyByAuthorId(user._id, { limit: 20, sort: { create_date: -1 } }),
+    ]);
+
+    // 通过构造set去重
+    const topic_ids = [ ...new Set(replies.map(reply => reply.topic_id.toString())) ].slice(0, 5);
+
+    const recent_replies_topic_query = {
+      id: {
+        $in: topic_ids,
+      },
+    };
+
+    let recent_replies = await service.topic.getTopicsByQuery(recent_replies_topic_query);
+    // 根据回复时间排序
+    recent_replies = recent_replies.sort((a, b) => {
+      return topic_ids.indexOf(a._id) - topic_ids.indexOf(b._id);
+    });
+
+    ctx.body = {
+      user,
+      recent_replies,
+      recent_topics,
+    };
+  }
+
   // 注册
   async signup() {
     const { ctx, service } = this;

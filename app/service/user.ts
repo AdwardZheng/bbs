@@ -29,13 +29,13 @@ export default class UserService extends Service {
   getUserByPointWord(query: any, opt?: any) {
     console.log(query);
     const { ctx } = this;
-    return (ctx.model.User as Model<UserModel>).find(query, '', opt);
+    return (ctx.model.User as Model<UserModel>).find(query, {}, opt);
   }
 
   // 根据用户名获取用户
   getUserByname(name: string, opt?: any) {
     const { ctx } = this;
-    return (ctx.model.User as Model<UserModel>).findOne({ name }, opt);
+    return (ctx.model.User as Model<UserModel>).findOne({ name }, {}, opt);
   }
 
   //  增加积分和发帖数

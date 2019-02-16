@@ -17,6 +17,7 @@ export default (app: Application) => {
   router.get('/login', localStrategy);
   router.all('/signout', controller.user.signout);
   router.post('/reset_psw', controller.user.resetPass);
+  router.get('/user/:name', controller.user.index);
 
   // topic
 
