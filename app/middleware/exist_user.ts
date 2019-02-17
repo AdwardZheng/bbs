@@ -1,7 +1,6 @@
 /**
  * 判断是否存在用户即登录
  */
-// import { Context, Application } from 'egg';
 export default () => {
   return async function existUser(ctx: any, next: () => Promise<any>) {
     if (!ctx.user || !ctx.user._id) {

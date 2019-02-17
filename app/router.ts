@@ -1,9 +1,11 @@
 import { Application } from 'egg';
 export default (app: Application) => {
-  const { controller, router, middleware } = app;
+  const { controller, router, middleware, config } = app;
 
   const existUser = middleware.existUser();
   const requieAdmin = middleware.requireAdmin();
+  const createUsreLimit = middleware.createUserLimit(config.createUserLimit.limit);
+  const createTopicLimit = middleware.createTopicLimit(config.createTopicLimit.limit);
 
   router.get('/', controller.home.index);
 
@@ -13,7 +15,7 @@ export default (app: Application) => {
     successRedirect: '/',
   });
 
-  router.get('/signup', controller.user.signup);
+  router.get('/signup', createUsreLimit, controller.user.signup);
   router.get('/login', localStrategy);
   router.all('/signout', controller.user.signout);
   router.post('/reset_psw', controller.user.resetPass);
@@ -22,7 +24,7 @@ export default (app: Application) => {
   // topic
 
   // 新建主题帖
-  router.post('/topic/create', existUser, controller.topic.create);
+  router.post('/topic/create', existUser, createTopicLimit, controller.topic.create);
   // 获取主题及其回复
   router.get('/topic/:tid', controller.topic.index);
   // 修改主题

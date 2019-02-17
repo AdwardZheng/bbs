@@ -6,3 +6,4 @@ import 'egg-mongoose';
 import 'egg-validate';
 import 'egg-passport';
 import 'egg-passport-local';
+import 'egg-redis';

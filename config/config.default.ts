@@ -15,8 +15,24 @@ export default (appInfo: EggAppInfo) => {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
     topic_count: 10,
     admings: [ 'admin' ],
+    createUserLimit: {
+      limit: 10,
+    },
+    createTopicLimit: {
+      limit: 10,
+    },
   };
 
+  // database
+  // redis
+  config.redis = {
+    client: {
+      host: '127.0.0.1',
+      port: 6379,
+      password: '',
+      db: 0,
+    },
+  };
   // mongoose
   config.mongoose = {
     url: 'mongodb://localhost/bbs',

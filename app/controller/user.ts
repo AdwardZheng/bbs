@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import * as moment from 'moment';
 export default class UserController extends Controller {
 
   async index() {
@@ -73,8 +74,15 @@ export default class UserController extends Controller {
       ],
     }, {});
     if (user.length > 0) return ctx.body = '用户已存在';
+    // await service.user.addNewUser(name, password, email);
+    const ip = ctx.ip;
+    const time = moment().format('YYYYMMDD');
+    const cacheKey = `user_count_${ip}_${time}`;
+    await Promise.all([
+      service.user.addNewUser(name, password, email),
+      service.cache.incr(cacheKey, 60 * 60 * 24),
+    ]);
 
-    await service.user.addNewUser(name, password, email);
     ctx.body = JSON.stringify(paramas);
   }
 

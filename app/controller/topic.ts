@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import * as moment from 'moment';
 
 export default class TopicController extends Controller {
 
@@ -62,6 +63,9 @@ export default class TopicController extends Controller {
 
     await service.user.incScoreAndReplyCount(topic.author_id, 5, 1);
 
+    const time = moment().format('YYYYMMDD');
+    const cacheKey = `topics_count_${ctx.user._id}_${time}`;
+    await service.cache.incr(cacheKey, 60 * 60 * 24);
     ctx.body = {
       msg: '发布成功',
     };
