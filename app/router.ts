@@ -13,7 +13,7 @@ export default (app: Application) => {
   // user
 
   const localStrategy = app.passport.authenticate('local', {
-    // successRedirect: '/',
+    successRedirect: '/',
   });
 
   router.post('/signup', createUsreLimit, controller.user.signup);
