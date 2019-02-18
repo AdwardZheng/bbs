@@ -8,6 +8,7 @@ export default (app: Application) => {
   const createTopicLimit = middleware.createTopicLimit(config.createTopicLimit.limit);
 
   router.get('/home', controller.home.index);
+  router.get('/', controller.home.view);
 
   // user
 

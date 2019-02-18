@@ -39,4 +39,9 @@ export default class HomeController extends Controller {
       pages,
     };
   }
+
+  async view() {
+    const { ctx } = this;
+    ctx.redirect('/');
+  }
 }
