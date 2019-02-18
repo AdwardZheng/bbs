@@ -7,19 +7,20 @@ export default (app: Application) => {
   const createUsreLimit = middleware.createUserLimit(config.createUserLimit.limit);
   const createTopicLimit = middleware.createTopicLimit(config.createTopicLimit.limit);
 
-  router.get('/', controller.home.index);
+  router.get('/home', controller.home.index);
 
   // user
 
   const localStrategy = app.passport.authenticate('local', {
-    successRedirect: '/',
+    // successRedirect: '/',
   });
 
-  router.get('/signup', createUsreLimit, controller.user.signup);
-  router.get('/login', localStrategy);
+  router.post('/signup', createUsreLimit, controller.user.signup);
+  router.post('/login', localStrategy);
   router.all('/signout', controller.user.signout);
   router.post('/reset_psw', controller.user.resetPass);
   router.get('/user/:name', controller.user.index);
+  router.get('/user', existUser, controller.user.getUser);
 
   // topic
 

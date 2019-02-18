@@ -74,6 +74,6 @@ export default class TopicService extends Service {
   //  获取主题数
   getCountByQuery(query: any) {
     const { ctx } = this;
-    return ctx.model.Topic.count(query);
+    return ctx.model.Topic.countDocuments(query);
   }
 }

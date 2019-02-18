@@ -41,7 +41,9 @@ export default (app: Application) => {
       user = await ctx.service.user.getUserById(user_id);
 
       if (!user) return null;
-
+      ctx.body = {
+        user,
+      };
       return user;
     }
 

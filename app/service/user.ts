@@ -21,6 +21,7 @@ export default class UserService extends Service {
     user.name = name;
     user.password = password;
     user.email = email;
+    user.loginname = name;
     console.log('保存用户信息');
     return user.save();
   }

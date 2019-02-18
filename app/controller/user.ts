@@ -56,13 +56,13 @@ export default class UserController extends Controller {
   // 注册
   async signup() {
     const { ctx, service } = this;
-    const paramas = ctx.query;
+    const paramas = ctx.request.body;
     const { name, email, password } = paramas;
 
     //  检查参数
     const createRule = {
       name: { type: 'string', required: true, trim: true },
-      email: { type: 'string', required: true, trim: true },
+      email: { type: 'email', required: true, trim: true },
       password: { type: 'string', required: true, trim: true },
     };
 
@@ -73,7 +73,7 @@ export default class UserController extends Controller {
         { email },
       ],
     }, {});
-    if (user.length > 0) return ctx.body = '用户已存在';
+    if (user.length > 0) return ctx.body = { err: '用户已存在' };
     // await service.user.addNewUser(name, password, email);
     const ip = ctx.ip;
     const time = moment().format('YYYYMMDD');
@@ -135,6 +135,20 @@ export default class UserController extends Controller {
     await user.save();
     ctx.body = {
       msg: '重置密码成功',
+    };
+  }
+
+  // 获取登录用户信息
+  async getUser() {
+    const { ctx } = this;
+    const { loginname, score, create_at, name } = ctx.user;
+    ctx.body = {
+      user: {
+        loginname,
+        name,
+        score,
+        create_at,
+      },
     };
   }
 }

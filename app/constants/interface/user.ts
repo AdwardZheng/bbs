@@ -7,6 +7,7 @@ export interface User {
     score: number;
     create_at: Date;
     update_at: Date;
+    loginname: string;
 }
 
 export interface UserModel extends User, Document {

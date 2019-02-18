@@ -12,6 +12,7 @@ export default (app: Application) => {
         create_at: { type: Date, default: Date.now },
         update_at: { type: Date, default: Date.now },
         reply_count: { type: Number, default: 0 },
+        loginname: { type: String },
     });
 
     UserSchema.index({ email: 1 }, { unique: true });
