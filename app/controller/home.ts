@@ -40,8 +40,4 @@ export default class HomeController extends Controller {
     };
   }
 
-  async view() {
-    const { ctx } = this;
-    ctx.redirect('/');
-  }
 }
